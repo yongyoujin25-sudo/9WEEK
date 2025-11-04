@@ -10,14 +10,19 @@ function setup() {
 function draw() {
   background(220);
 
-  let gravity = createVector(0, 0.3);
-  ball.addForce(gravity);
+//   let gravity = createVector(0, 0.3);
+//   ball.addForce(gravity);
 
-  if(mouseIsPressed) {
-    let wind = createVector(0.1,0);
-    ball.addForce(wind);
-  } 
 
   ball.update();
   ball.show();
+}
+
+function mouseReleased() {
+    let d = dist(ball.pos.x, ball.pos.y, mouseX, mouseY);
+    if (d < ball.w/2){
+      let ff = p5.Vector.sub(ball.pos, createVector(mouseX,mouseY));
+      ff.mult(0.3);
+      ball.addForce(ff);
+    }
 }
